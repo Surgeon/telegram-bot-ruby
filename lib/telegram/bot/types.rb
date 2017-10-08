@@ -1,4 +1,3 @@
-require 'telegram/bot/types/compactable'
 require 'telegram/bot/types/base'
 require 'telegram/bot/types/user'
 require 'telegram/bot/types/audio'
@@ -67,5 +66,3 @@ require 'telegram/bot/types/labeled_price'
 require 'telegram/bot/types/shipping_option'
 require 'telegram/bot/types/chat_member'
 require 'telegram/bot/types/user_profile_photos'
-
-Virtus.finalize

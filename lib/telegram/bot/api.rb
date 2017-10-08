@@ -42,7 +42,8 @@ module Telegram
         Telegram::Bot::Types::InlineQueryResultCachedDocument,
         Telegram::Bot::Types::InlineQueryResultCachedVideo,
         Telegram::Bot::Types::InlineQueryResultCachedVoice,
-        Telegram::Bot::Types::InlineQueryResultCachedAudio
+        Telegram::Bot::Types::InlineQueryResultCachedAudio,
+        Telegram::Bot::Types::LabeledPrice
       ].freeze
 
       attr_reader :token
@@ -94,9 +95,7 @@ module Telegram
       end
 
       def jsonify_inline_query_results(value)
-        return value unless
-          value.is_a?(Array) &&
-          value.all? { |i| INLINE_QUERY_RESULT_TYPES.include?(i.class) }
+        return value unless value.is_a?(Array) && value.all? { |i| INLINE_QUERY_RESULT_TYPES.include?(i.class) }
         value.map { |i| i.to_compact_hash.select { |_, v| v } }.to_json
       end
 
@@ -109,7 +108,7 @@ module Telegram
       def conn
         @conn ||= Faraday.new(url: 'https://api.telegram.org') do |faraday|
           faraday.request :multipart
-          faraday.request :url_encoded
+          faraday.request :json
           faraday.adapter Telegram::Bot.configuration.adapter
         end
       end

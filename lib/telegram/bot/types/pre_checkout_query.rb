@@ -3,6 +3,7 @@ module Telegram
     module Types
       class PreCheckoutQuery < Base
         attribute :id, String
+        attribute :text, String
         attribute :from, User
         attribute :currency, String
         attribute :total_amount, Integer
